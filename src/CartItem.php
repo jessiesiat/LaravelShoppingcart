@@ -341,6 +341,7 @@ class CartItem implements Arrayable, Jsonable
      */
     public function toArray()
     {
+        $product = ($this->model instanceof \App\ProductVariation) ? $this->model->product : $this->model;
         return [
             'rowId'    => $this->rowId,
             'id'       => $this->id,
@@ -349,6 +350,8 @@ class CartItem implements Arrayable, Jsonable
             'price'    => $this->price,
             'options'  => $this->options->toArray(),
             'tax'      => $this->tax,
+            'model'    => $this->model,
+            'on_sale'  => $product->isOnSale(),
             'subtotal' => $this->subtotal
         ];
     }
